@@ -1,52 +1,68 @@
-import React from 'react';
-import './signin.styles.scss'
+import React from "react";
+import "./signin.styles.scss";
+import FormInput from "../form-input/form-input.component";
+import CustomButton from "../custom-button/custom-button.component";
+import { signInWithGoogle } from "../../firebase/firebase.util";
 
-class Signin extends React.Component{
-    constructor(){
-        super();
-        this.state={
-            email:'',
-            password: ''
-        }
-    }
+class Signin extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      email: "",
+      password: "",
+    };
+  }
 
-    handleSubmit = event=>{
-        event.preventDefault()
-        this.setState({email:'', password:''})
-    }
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({ email: "", password: "" });
+  };
 
-    handleChange = event =>{
-        const {name, value} = event.target
+  handleChange = (event) => {
+    const { name, value } = event.target;
 
-        this.setState({[name]: value})
-    }
+    this.setState({ [name]: value });
+  };
 
-    render(){
-        return(
-            <div className='sign-in'>
-                <h2>I Already have an account?</h2>
-                <span>Signin with Email and Password</span>
+  render() {
+    return (
+      <div className="sign-in">
+        <h2>I Already have an account?</h2>
+        <span>Signin with Email and Password</span>
 
-                <form onSubmit={this.handleSubmit}>
-                    <input 
-                    name='email' 
-                    type="email" 
-                    value={this.state.email}
-                    onChange={this.handleChange}/>
-                    <label>Email</label>
-                    
-                    <input 
-                    name='password' 
-                    type="password" 
-                    value={this.state.password}
-                    onChange={this.handleChange}/>
-                    <label>Password</label>
+        <form onSubmit={this.handleSubmit}>
+          <FormInput
+            handleChange={this.handleChange}
+            label="Email"
+            name="email"
+            type="email"
+            value={this.state.email}
+          />
 
-                    <input type="submit" value='Submit'/>
-                </form>
-            </div>
-        )
-    }
+          <FormInput
+            name="password"
+            type="password"
+            value={this.state.password}
+            handleChange={this.handleChange}
+            label="Password"
+          />
+
+          <div className="buttons">
+            <CustomButton type="submit" value="Submit">
+              SIGN IN
+            </CustomButton>
+            <CustomButton
+              value="Submit"
+              onClick={signInWithGoogle}
+              isGoogleSignin
+            >
+              SIGN IN WITH GOOLE
+            </CustomButton>
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
 
-export default Signin
+export default Signin;

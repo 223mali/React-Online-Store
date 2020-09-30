@@ -4,11 +4,12 @@ import Signin from '../../components/signin/signin.component';
 import './signin-signup.styles.scss';
 
 
-const SigninSignup = ()=>{
+
+const SigninSignup = () =>{
     return (
         <div>
-            Signin
             <Signin />
+            
         </div>
     )
 }

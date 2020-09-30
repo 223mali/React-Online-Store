@@ -6,11 +6,21 @@ import {Switch, Route} from 'react-router-dom';
 import ShopPage from './pages/shop/shoppage.component'
 import Header from './components/header/header.component'
 import SigninSignup from "./pages/signin-signup/signin-signup.component";
+import { auth } from "./firebase/firebase.util";
 
-function App() {
+
+class App extends React.Component {
+  constructor(){
+    super();
+
+    this.state = {
+      user: null
+    }
+  }
+ render(){
   return (
     <div>
-      <Header />
+      <Header currentUser = {this.state.user} />
       <Switch>
       <Route exact path='/' component={HomePage} />
       <Route path='/shop' component={ShopPage} />
@@ -20,6 +30,19 @@ function App() {
       </Switch>
     </div>
   );
+ }
+ unsubscribeFromAuth = null
+ componentDidMount(){
+   this.unsubscribeFromAuth = auth.onAuthStateChanged(user=>{
+    this.setState({user:user})
+    console.log(user)
+  })  
+ }
+
+ componentWillUnmount(){
+   this.unsubscribeFromAuth();  
+ }
+
 }
 
 export default App;
