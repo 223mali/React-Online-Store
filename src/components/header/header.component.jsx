@@ -6,7 +6,6 @@ import { auth } from '../../firebase/firebase.util'
 
 
 const Header = ({currentUser})=> {
-    console.log(currentUser);
 
     return(
         <div className="header">
